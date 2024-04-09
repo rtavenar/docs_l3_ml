@@ -1,0 +1,22 @@
+name: "Docs Gen"
+on:
+    push:
+      branches:
+      - main
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - run: pip install pydata_sphinx_theme scikit-learn scipy numpy matplotlib tensorflow keras graphviz sphinx-copybutton pandas
+    - name: Build the docs
+      run: |
+        cd src/docs && sphinx-build -b html . _build
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: src/docs/_build/
