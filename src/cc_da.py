@@ -267,7 +267,7 @@ def charger_cifar():
 
     Example
     -------
-    >>> X_app, X_test, y_app, y_test = charger_fashion()
+    >>> X_app, X_test, y_app, y_test = charger_cifar()
     """
     loaded = np.load("cifar10.npz")
     X = loaded["X"]
