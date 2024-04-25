@@ -252,7 +252,6 @@ def charger_cifar():
     
     Ce jeu de données contient des images d'objets et la tâche de classification
     consiste à retrouver le type d'objet contenu dans l'image (10 classes possibles).
-    Chaque image est en résolution 28x28, ce qui fait 784 pixels en tout.
 
     Returns
     -------
