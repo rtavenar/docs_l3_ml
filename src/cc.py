@@ -2,7 +2,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.cluster import KMeans as sklearn_KMeans
+from sklearn.cluster import KMeans as sklearn_KMeans
 
 class ArbreClassification:
     """Arbre binaire de classification.

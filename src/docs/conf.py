@@ -5,7 +5,7 @@ import sys
 sys.path.insert(0, os.path.abspath("."))
 sys.path.insert(0, os.path.abspath(".."))
 
-project = "Initiation au ML"
+project = "ML"
 copyright = ""
 author = "Romain Tavenard"
 extensions = ["sphinx.ext.autodoc", 
@@ -25,7 +25,7 @@ intersphinx_mapping = {
 html_theme_options = {
     "nosidebar": True,
     "logo": {
-        "text": "Initiation au ML (L1 MIASHS)"
+        "text": "ML (L3 MIASHS)"
     },
     "show_toc_level": 3,
     "show_prev_next": False
