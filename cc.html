@@ -371,52 +371,6 @@ du modèle sur les données fournies.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="cc.ClassificationAscendanteHierarchique">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClassificationAscendanteHierarchique</span></span><a class="headerlink" href="#cc.ClassificationAscendanteHierarchique" title="Lien vers cette définition">#</a></dt>
-<dd><p>Classification Ascendante Hierarchique.</p>
-<p class="rubric">Exemple</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ClassificationAscendanteHierarchique</span><span class="p">()</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="cc.ClassificationAscendanteHierarchique.entrainement">
-<span class="sig-name descname"><span class="pre">entrainement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ClassificationAscendanteHierarchique.entrainement" title="Lien vers cette définition">#</a></dt>
-<dd><p>Ajuste les paramètres du modèle sur les données fournies.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données</p>
-</dd>
-</dl>
-<p class="rubric">Exemple</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ClassificationAscendanteHierarchique</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cc.ClassificationAscendanteHierarchique.visualisation_images">
-<span class="sig-name descname"><span class="pre">visualisation_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ClassificationAscendanteHierarchique.visualisation_images" title="Lien vers cette définition">#</a></dt>
-<dd><p>Visualise quelques images du jeu de données regroupées par clusters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
-<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Exemple</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ClassificationAscendanteHierarchique</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">visualisation_images</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=...</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="cc.ForetClassification">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ForetClassification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_arbres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_attributs_par_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profondeur_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ForetClassification" title="Lien vers cette définition">#</a></dt>
 <dd><p>Forêt aléatoire pour la classification.</p>
@@ -643,11 +597,6 @@ liées aux prédictions.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification.entrainement"><code class="docutils literal notranslate"><span class="pre">ArbreClassification.entrainement()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification.evaluation"><code class="docutils literal notranslate"><span class="pre">ArbreClassification.evaluation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification.prediction"><code class="docutils literal notranslate"><span class="pre">ArbreClassification.prediction()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ClassificationAscendanteHierarchique"><code class="docutils literal notranslate"><span class="pre">ClassificationAscendanteHierarchique</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ClassificationAscendanteHierarchique.entrainement"><code class="docutils literal notranslate"><span class="pre">ClassificationAscendanteHierarchique.entrainement()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ClassificationAscendanteHierarchique.visualisation_images"><code class="docutils literal notranslate"><span class="pre">ClassificationAscendanteHierarchique.visualisation_images()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ForetClassification"><code class="docutils literal notranslate"><span class="pre">ForetClassification</span></code></a><ul class="visible nav section-nav flex-column">
