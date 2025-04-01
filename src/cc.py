@@ -163,63 +163,6 @@ class ForetClassification:
         """
         return self._model.score(X, y)
 
-class ClassificationAscendanteHierarchique:
-    """Classification Ascendante Hierarchique.
-
-    Example
-    -------
-    >>> modele = ClassificationAscendanteHierarchique()
-    """
-    def __init__(self):
-        self._model = AgglomerativeClustering(compute_distances=True)
-    
-    def entrainement(self, X):
-        """Ajuste les paramètres du modèle sur les données fournies.
-        
-        Parameters
-        ----------
-        X : ``numpy.ndarray`` (~= liste de liste)
-            jeu de données
-
-        Example
-        -------
-        >>> modele = ClassificationAscendanteHierarchique()
-        >>> modele.entrainement(X)
-        """
-        self._model.fit(X)
-    
-    def visualisation_images(self, X, n_clusters):
-        """Visualise quelques images du jeu de données regroupées par clusters.
-        
-        Parameters
-        ----------
-        X : ``numpy.ndarray`` (~= liste de liste)
-            jeu de données (variables explicatives)
-        y : liste d'entiers
-            variable cible pour le jeu de données (=information de classe pour chaque individu)
-
-        Example
-        -------
-        >>> modele = ClassificationAscendanteHierarchique()
-        >>> modele.entrainement(X)
-        >>> modele.visualisation_images(X, n_clusters=...)
-        """
-        model = AgglomerativeClustering(compute_distances=True, n_clusters=n_clusters)
-        model.fit(X)
-
-        plt.figure(figsize=(4, n_clusters))
-        for i_c in range(n_clusters):
-            X_cluster = X[model.labels_ == i_c]
-            indices = np.random.choice(len(X_cluster), size=4, replace=False)
-            for i, idx in enumerate(indices):
-                ax = plt.subplot(n_clusters, 4, i_c * 4 + i + 1)
-                plt.imshow(X_cluster[idx].reshape((28, 28)), cmap="Greys")
-                ax.set_xticks([])
-                ax.set_yticks([])
-            
-        plt.tight_layout()
-        plt.show()
-
 
 class KMeans:
     """Classification KMeans.
