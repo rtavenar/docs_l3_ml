@@ -27,7 +27,7 @@ html_theme_options = {
     "logo": {
         "text": "ML (L3 MIASHS)"
     },
-    "show_toc_level": 3,
+    "show_toc_level": 1,
     "show_prev_next": False
 }
 html_sidebars = {
