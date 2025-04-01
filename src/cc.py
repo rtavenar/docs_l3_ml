@@ -1,10 +1,8 @@
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.cluster import AgglomerativeClustering
-from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.cluster.hierarchy import dendrogram
+from scipy.cluster import KMeans as sklearn_KMeans
 
 class ArbreClassification:
     """Arbre binaire de classification.
@@ -223,60 +221,143 @@ class ClassificationAscendanteHierarchique:
         plt.show()
 
 
-    def visualisation_dendrogramme(self):
-        """Visualise le dendrogramme correspondant à un modèle appris.
+class KMeans:
+    """Classification KMeans.
 
-        Le dendrogramme permet de visualiser le process d'agglomération des individus.
-        Il permet aussi de choisir le nombre de groupes car la hauteur des segments 
-        correspond à la distance entre deux groupes.
+    Example
+    -------
+    >>> modele = KMeans(k=37)
+    """
+    def __init__(self, k):
+        self._model = sklearn_KMeans(n_clusters=k, n_init=1)
+    
+    def entrainement(self, X):
+        """Ajuste les paramètres du modèle sur les données fournies.
+        
+        Parameters
+        ----------
+        X : ``numpy.ndarray`` (~= liste de liste)
+            jeu de données
 
         Example
         -------
-        >>> modele = ClassificationAscendanteHierarchique()
+        >>> modele = KMeans(k=37)
         >>> modele.entrainement(X)
-        >>> modele.visualisation_dendrogramme()
         """
-        linkage_matrix = np.column_stack(
-            [self._model.children_, self._model.distances_, np.zeros(self._model.children_.shape[0])]
-        ).astype(float)
+        self._model.fit(X)
 
-        # Plot the corresponding dendrogram
-        dendrogram(
-            linkage_matrix, 
-            color_threshold=0. if self._model.n_clusters is None else self._model.distances_[::-1][self._model.n_clusters-2],
-            truncate_mode='lastp', p=10)
+    def inertie(self):
+        """Retourne l'inertie intra-classe du modèle calculée sur le jeu d'apprentissage.
+
+        Example
+        -------
+        >>> modele = KMeans(k=37)
+        >>> modele.entrainement(X)
+        >>> print(modele.inertie())
+        """
+        return self._model.inertia_
+    
+    def visualisation_images(self, X):
+        """Visualise quelques images du jeu de données regroupées par clusters.
+        
+        Parameters
+        ----------
+        X : ``numpy.ndarray`` (~= liste de liste)
+            jeu de données (variables explicatives)
+        y : liste d'entiers
+            variable cible pour le jeu de données (=information de classe pour chaque individu)
+
+        Example
+        -------
+        >>> modele = KMeans(k=37)
+        >>> modele.visualisation_images(X)
+        """
+        self.entrainement(X)
+
+        plt.figure(figsize=(4, self._model.n_clusters))
+        for i_c in range(self._model.n_clusters):
+            X_cluster = X[self._model.labels_ == i_c]
+            indices = np.random.choice(len(X_cluster), size=4, replace=False)
+            for i, idx in enumerate(indices):
+                ax = plt.subplot(self._model.n_clusters, 4, i_c * 4 + i + 1)
+                plt.imshow(X_cluster[idx].reshape((28, 28)), cmap="Greys")
+                ax.set_xticks([])
+                ax.set_yticks([])
+            
+        plt.tight_layout()
+        plt.show()
     
 
-def charger_fashion():
-    """Charge le jeu de données de classification d'images Fashion-MNIST.
+def charger_mnist():
+    """Charge le jeu de données de classification d'images MNIST.
     
-    Ce jeu de données contient des images d'accessoires de mode et la tâche de classification
-    consiste à retrouver le type d'accessoire contenu dans l'image (10 classes possibles).
+    Ce jeu de données contient des images de chiffres manuscrits et la tâche de classification
+    consiste à retrouver le chiffre écrit dans l'image (10 classes possibles).
     Chaque image est en résolution 28x28, ce qui fait 784 pixels en tout.
 
     Returns
     -------
-    X_train : ``numpy.ndarray`` (~= liste de liste)
+    X_train : ``numpy.ndarray`` (liste de liste)
         jeu de données d'apprentissage (variables explicatives)
     y_train : liste d'entiers
         variable cible pour le jeu de données d'apprentissage (=classe)
-    X_test : ``numpy.ndarray`` (~= liste de liste)
+    X_test : ``numpy.ndarray`` (liste de liste)
         jeu de données de test (variables explicatives)
     y_test : liste d'entiers
         variable cible pour le jeu de données de test (=classe)
 
     Example
     -------
-    >>> X_app, X_test, y_app, y_test = charger_fashion()
+    >>> X_app, X_test, y_app, y_test = charger_mnist()
     >>> print(len(X_app))
-    6000
+    300
     >>> print(len(y_app))
-    6000
-    >>> print(len(X[0]))
+    300
+    >>> print(len(X_app[0]))
     784
     """
-    loaded = np.load("fashion-mnist.npz")
-    X = loaded["X"]
-    y = loaded["y"]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.5, random_state=0)
+    loaded = np.load("mnist_subset.npz")
+    X_train = loaded["images_apprentissage"]
+    y_train = loaded["y_apprentissage"]
+    X_test = loaded["images_test"]
+    y_test = loaded["y_test"]
     return X_train, X_test, y_train, y_test
+
+
+def visu_images(X, preds=None):
+    """Visualise un jeu de données d'images de résolution 28x28
+
+    Parameters
+    ----------
+    X : ``numpy.ndarray`` (liste de liste)
+        jeu de données (variables explicatives)
+    y : liste d'entiers
+        variable cible (=classe)
+    preds : liste d'entiers, ou ``None``
+        liste des prédictions fournies par un modèle. 
+        Si ``None``, on ne visualise pas les informations 
+        liées aux prédictions.
+
+    Example
+    -------
+    >>> X_app, X_test, y_app, y_test = charger_mnist()
+    >>> visu_images(X_app, y_app)
+    >>> visu_images(X_test, y_test, modele.prediction(X_test))
+    """
+    np.random.seed(0)
+    plt.figure(figsize=(8, 8))
+    indices = np.random.choice(len(X), size=16, replace=False)
+    for i, idx in enumerate(indices):
+        ax = plt.subplot(4, 4, i + 1)
+        plt.imshow(X[idx].reshape((28, 28)), cmap="Greys")
+        if preds is None:
+            plt.title(f"Image {idx}\nClasse {y[idx]}")
+        else:
+            plt.title(f"Image {idx}\nClasse {y[idx]}, Prédite {preds[idx]}")
+            if preds[idx] != y[idx]:
+                plt.setp(ax.spines.values(), color="red")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        
+    plt.tight_layout()
+    plt.show()
