@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CC &#8212; Documentation Initiation au ML </title>
+    <title>CC &#8212; Documentation ML </title>
   
   
   
@@ -114,7 +114,7 @@
   
   
   
-    <p class="title logo__title">Initiation au ML (L1 MIASHS)</p>
+    <p class="title logo__title">ML (L3 MIASHS)</p>
   
 </a></div>
     
@@ -176,6 +176,10 @@
     </div>
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="Sur cette page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -283,8 +287,333 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="cc">
-<h1>CC<a class="headerlink" href="#cc" title="Lien vers cette rubrique">#</a></h1>
+  <section id="module-cc">
+<span id="cc"></span><h1>CC<a class="headerlink" href="#module-cc" title="Lien vers cette rubrique">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cc.ArbreClassification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ArbreClassification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profondeur_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ArbreClassification" title="Lien vers cette définition">#</a></dt>
+<dd><p>Arbre binaire de classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>profondeur_max</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code> ou <code class="docutils literal notranslate"><span class="pre">None</span></code> (défaut <code class="docutils literal notranslate"><span class="pre">None</span></code>)) – Profondeur maximale acceptable des arbres à construire.
+Si <code class="docutils literal notranslate"><span class="pre">None</span></code>, l’arbre complet est construit
+(jusqu’à obtenir des feuilles pures).</p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ArbreClassification</span><span class="p">(</span><span class="n">profondeur_max</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ArbreClassification.entrainement">
+<span class="sig-name descname"><span class="pre">entrainement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ArbreClassification.entrainement" title="Lien vers cette définition">#</a></dt>
+<dd><p>Ajuste les paramètres du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ArbreClassification</span><span class="p">(</span><span class="n">profondeur_max</span><span class="o">=...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ArbreClassification.evaluation">
+<span class="sig-name descname"><span class="pre">evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ArbreClassification.evaluation" title="Lien vers cette définition">#</a></dt>
+<dd><p>Évalue les performances (taux de bonnes classification)
+du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>score</strong> – Taux de bonnes classification obtenu par le modèle courant sur les données fournies</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(disponible dans Python v3.13)">float</a></p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ArbreClassification</span><span class="p">(</span><span class="n">profondeur_max</span><span class="o">=...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">evaluation</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
+<span class="go">0.88</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ArbreClassification.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ArbreClassification.prediction" title="Lien vers cette définition">#</a></dt>
+<dd><p>Calcule la prédiction du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ArbreClassification</span><span class="p">(</span><span class="n">profondeur_max</span><span class="o">=...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cc.ClassificationAscendanteHierarchique">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClassificationAscendanteHierarchique</span></span><a class="headerlink" href="#cc.ClassificationAscendanteHierarchique" title="Lien vers cette définition">#</a></dt>
+<dd><p>Classification Ascendante Hierarchique.</p>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ClassificationAscendanteHierarchique</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ClassificationAscendanteHierarchique.entrainement">
+<span class="sig-name descname"><span class="pre">entrainement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ClassificationAscendanteHierarchique.entrainement" title="Lien vers cette définition">#</a></dt>
+<dd><p>Ajuste les paramètres du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données</p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ClassificationAscendanteHierarchique</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ClassificationAscendanteHierarchique.visualisation_images">
+<span class="sig-name descname"><span class="pre">visualisation_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ClassificationAscendanteHierarchique.visualisation_images" title="Lien vers cette définition">#</a></dt>
+<dd><p>Visualise quelques images du jeu de données regroupées par clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ClassificationAscendanteHierarchique</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">visualisation_images</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=...</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cc.ForetClassification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ForetClassification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_arbres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_attributs_par_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profondeur_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ForetClassification" title="Lien vers cette définition">#</a></dt>
+<dd><p>Forêt aléatoire pour la classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_arbres</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code> (défaut 1)) – Nombre d’arbres à inclure dans la forêt</p></li>
+<li><p><strong>n_attributs_par_split</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code> (défaut 1)) – Nombre d’attributs à tirer au hasard pour chaque séparation dans
+les arbres à construire</p></li>
+<li><p><strong>profondeur_max</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code> ou <code class="docutils literal notranslate"><span class="pre">None</span></code> (défaut <code class="docutils literal notranslate"><span class="pre">None</span></code>)) – Profondeur maximale acceptable des arbres à construire.
+Si <code class="docutils literal notranslate"><span class="pre">None</span></code>, les arbres complets sont construits
+(jusqu’à obtenir des feuilles pures).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ForetClassification</span><span class="p">(</span><span class="n">n_arbres</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="go">                                 n_attributs_par_split=20,</span>
+<span class="go">                                 profondeur_max=12)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ForetClassification.entrainement">
+<span class="sig-name descname"><span class="pre">entrainement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ForetClassification.entrainement" title="Lien vers cette définition">#</a></dt>
+<dd><p>Ajuste les paramètres du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ForetClassification</span><span class="p">(</span><span class="n">n_arbres</span><span class="o">=...</span><span class="p">,</span> <span class="n">n_attributs_par_split</span><span class="o">=...</span><span class="p">,</span> <span class="n">profondeur_max</span><span class="o">=...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ForetClassification.evaluation">
+<span class="sig-name descname"><span class="pre">evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ForetClassification.evaluation" title="Lien vers cette définition">#</a></dt>
+<dd><p>Évalue les performances (taux de bonnes classification)
+du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>score</strong> – Taux de bonnes classification obtenu par le modèle courant sur les données fournies</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(disponible dans Python v3.13)">float</a></p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ForetClassification</span><span class="p">(</span><span class="n">n_arbres</span><span class="o">=...</span><span class="p">,</span> <span class="n">n_attributs_par_split</span><span class="o">=...</span><span class="p">,</span> <span class="n">profondeur_max</span><span class="o">=...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">evaluation</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
+<span class="go">0.97</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.ForetClassification.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.ForetClassification.prediction" title="Lien vers cette définition">#</a></dt>
+<dd><p>Calcule la prédiction du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">ForetClassification</span><span class="p">(</span><span class="n">n_arbres</span><span class="o">=...</span><span class="p">,</span> <span class="n">n_attributs_par_split</span><span class="o">=...</span><span class="p">,</span> <span class="n">profondeur_max</span><span class="o">=...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cc.KMeans">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">KMeans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.KMeans" title="Lien vers cette définition">#</a></dt>
+<dd><p>Classification KMeans.</p>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">37</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.KMeans.entrainement">
+<span class="sig-name descname"><span class="pre">entrainement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.KMeans.entrainement" title="Lien vers cette définition">#</a></dt>
+<dd><p>Ajuste les paramètres du modèle sur les données fournies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données</p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">37</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.KMeans.inertie">
+<span class="sig-name descname"><span class="pre">inertie</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cc.KMeans.inertie" title="Lien vers cette définition">#</a></dt>
+<dd><p>Retourne l’inertie intra-classe du modèle calculée sur le jeu d’apprentissage.</p>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">37</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">entrainement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">modele</span><span class="o">.</span><span class="n">inertie</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cc.KMeans.visualisation_images">
+<span class="sig-name descname"><span class="pre">visualisation_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.KMeans.visualisation_images" title="Lien vers cette définition">#</a></dt>
+<dd><p>Visualise quelques images du jeu de données regroupées par clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (~= liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible pour le jeu de données (=information de classe pour chaque individu)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">37</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modele</span><span class="o">.</span><span class="n">visualisation_images</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cc.charger_mnist">
+<span class="sig-name descname"><span class="pre">charger_mnist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cc.charger_mnist" title="Lien vers cette définition">#</a></dt>
+<dd><p>Charge le jeu de données de classification d’images MNIST.</p>
+<p>Ce jeu de données contient des images de chiffres manuscrits et la tâche de classification
+consiste à retrouver le chiffre écrit dans l’image (10 classes possibles).
+Chaque image est en résolution 28x28, ce qui fait 784 pixels en tout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>X_train</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (liste de liste)) – jeu de données d’apprentissage (variables explicatives)</p></li>
+<li><p><strong>y_train</strong> (<em>liste d’entiers</em>) – variable cible pour le jeu de données d’apprentissage (=classe)</p></li>
+<li><p><strong>X_test</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (liste de liste)) – jeu de données de test (variables explicatives)</p></li>
+<li><p><strong>y_test</strong> (<em>liste d’entiers</em>) – variable cible pour le jeu de données de test (=classe)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_app</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_app</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">charger_mnist</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_app</span><span class="p">))</span>
+<span class="go">300</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_app</span><span class="p">))</span>
+<span class="go">300</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_app</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="go">784</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cc.visu_images">
+<span class="sig-name descname"><span class="pre">visu_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cc.visu_images" title="Lien vers cette définition">#</a></dt>
+<dd><p>Visualise un jeu de données d’images de résolution 28x28</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (liste de liste)) – jeu de données (variables explicatives)</p></li>
+<li><p><strong>y</strong> (<em>liste d'entiers</em>) – variable cible (=classe)</p></li>
+<li><p><strong>preds</strong> (liste d’entiers, ou <code class="docutils literal notranslate"><span class="pre">None</span></code>) – liste des prédictions fournies par un modèle.
+Si <code class="docutils literal notranslate"><span class="pre">None</span></code>, on ne visualise pas les informations
+liées aux prédictions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Exemple</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_app</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_app</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">charger_mnist</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visu_images</span><span class="p">(</span><span class="n">X_app</span><span class="p">,</span> <span class="n">y_app</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visu_images</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">modele</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 
 
@@ -297,6 +626,48 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Sur cette page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification"><code class="docutils literal notranslate"><span class="pre">ArbreClassification</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification.entrainement"><code class="docutils literal notranslate"><span class="pre">ArbreClassification.entrainement()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification.evaluation"><code class="docutils literal notranslate"><span class="pre">ArbreClassification.evaluation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ArbreClassification.prediction"><code class="docutils literal notranslate"><span class="pre">ArbreClassification.prediction()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ClassificationAscendanteHierarchique"><code class="docutils literal notranslate"><span class="pre">ClassificationAscendanteHierarchique</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ClassificationAscendanteHierarchique.entrainement"><code class="docutils literal notranslate"><span class="pre">ClassificationAscendanteHierarchique.entrainement()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ClassificationAscendanteHierarchique.visualisation_images"><code class="docutils literal notranslate"><span class="pre">ClassificationAscendanteHierarchique.visualisation_images()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ForetClassification"><code class="docutils literal notranslate"><span class="pre">ForetClassification</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ForetClassification.entrainement"><code class="docutils literal notranslate"><span class="pre">ForetClassification.entrainement()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ForetClassification.evaluation"><code class="docutils literal notranslate"><span class="pre">ForetClassification.evaluation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.ForetClassification.prediction"><code class="docutils literal notranslate"><span class="pre">ForetClassification.prediction()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.KMeans"><code class="docutils literal notranslate"><span class="pre">KMeans</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.KMeans.entrainement"><code class="docutils literal notranslate"><span class="pre">KMeans.entrainement()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.KMeans.inertie"><code class="docutils literal notranslate"><span class="pre">KMeans.inertie()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.KMeans.visualisation_images"><code class="docutils literal notranslate"><span class="pre">KMeans.visualisation_images()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.charger_mnist"><code class="docutils literal notranslate"><span class="pre">charger_mnist()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cc.visu_images"><code class="docutils literal notranslate"><span class="pre">visu_images()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
