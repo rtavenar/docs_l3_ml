@@ -1,8 +1,7 @@
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.cluster import AgglomerativeClustering
 from sklearn.metrics import mean_squared_error
-from scipy.cluster.hierarchy import dendrogram, linkage
+from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -180,19 +179,19 @@ class ClassificationAscendanteHierarchique:
     ----------
     n_clusters : ``int`` (défaut 2)
         Nombre de clusters à former
-    linkage : ``str`` (défaut 'ward')
-        Critère de liaison : 'ward', 'complete', 'average', 'single'
+    linkage : ``str`` (défaut 'simple')
+        Type de lien : "simple", "complet" ou "moyen"
 
     Example
     -------
     >>> modele = ClassificationAscendanteHierarchique(n_clusters=3)
     """
-    def __init__(self, n_clusters=2, linkage_method='ward'):
+    def __init__(self, n_clusters=2, linkage_method='simple'):
+        d_linkage = {"simple": "single", "complet": "complete", "moyen": "average"}
         self._n_clusters = n_clusters
-        self._linkage_method = linkage_method
-        self._model = AgglomerativeClustering(n_clusters=n_clusters, 
-                                               linkage=linkage_method)
+        self._linkage_method = d_linkage[linkage_method]
         self._linkage_matrix = None
+        self._labels = None
     
     def entrainement(self, X):
         """Ajuste les paramètres du modèle sur les données fournies.
@@ -207,8 +206,8 @@ class ClassificationAscendanteHierarchique:
         >>> modele = ClassificationAscendanteHierarchique(n_clusters=3)
         >>> modele.entrainement(X)
         """
-        self._model.fit(X)
         self._linkage_matrix = linkage(X, method=self._linkage_method)
+        self._labels = fcluster(self._linkage_matrix, self._n_clusters, criterion='maxclust') - 1
 
     def labels(self):
         """Retourne les labels de cluster pour chaque point.
@@ -224,7 +223,7 @@ class ClassificationAscendanteHierarchique:
         >>> modele.entrainement(X)
         >>> labels = modele.labels()
         """
-        return self._model.labels_
+        return self._labels
     
     def visualisation_dendrogramme(self):
         """Visualise la hiérarchie de clustering sous forme de dendrogramme.
@@ -240,7 +239,8 @@ class ClassificationAscendanteHierarchique:
         
         plt.figure(figsize=(10, 6))
         dendrogram(self._linkage_matrix)
-        plt.axhline(y=self._linkage_matrix[-self._n_clusters + 1, 2], 
+        y = (self._linkage_matrix[-self._n_clusters + 1, 2] + self._linkage_matrix[-self._n_clusters, 2]) / 2
+        plt.axhline(y=y, 
                     c='red', linestyle='--', label=f'Seuil pour {self._n_clusters} clusters')
         plt.xlabel('Index des échantillons')
         plt.ylabel('Distance')
